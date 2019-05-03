@@ -9,7 +9,6 @@ document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagNa
 globaldiv = document.getElementById("big-player")
 
 globaldiv.innerHTML = `
-<style src="https://cdn.jsdelivr.net/gh/bigaston/podplayer/style.css">
 <div class="player">
     <img id="audio-logo" alt="Logo du podcast">
     <div class="audio-info">
