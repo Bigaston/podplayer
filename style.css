@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+#big-player {
+  font-family: 'Lato', sans-serif;
+  background: #ECF0F1;
+  width: 600px;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px #909497;
+
+  padding: 25px;
+}
+
+.player {
+  display: flex;
+  flex-direction: row;  
+}
+
+#audio-logo {
+  height: 150px;
+  width 150px;
+  border-radius: 25px;
+  margin-right: 25px;
+}
+
+.audio-info > h2 {
+  margin: 0px;
+  color: #17202A;
+  font-size: 30px;
+}
+
+.audio-info > h3 {
+  margin: 0px;
+  color: #566573;
+  display: inline;
+  margin-top: 3px;
+}
+
+#eplink {
+  color: #566573;
+  text-decoration: none;
+}
+
+#audio-ep {
+  color: #ABB2B9;
+  display: inline;
+}
+
+#progressbar {
+  height: 10px;
+  background-color: #BFC9CA;
+  border-radius: 3px;
+  margin-top: 3px;
+}
+
+#progressbar:hover {
+  cursor: pointer;
+}
+
+#prog {
+  background-color: #3498DB;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+}
+
+#audio-time {
+  margin-top: 0px;
+  color: #5D6D7E;
+}
+
+#audio-duration {
+  margin-top: 0px;
+  color: #5D6D7E;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+}
+
+.controls > i {
+  margin-top: -30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 40px;
+  color: #17202A;
+}
+
+.controls > i:hover {
+  cursor: pointer;
+}
+
+#share {
+  margin-top: 5px;
+  border-top: 1px dashed #ABB2B9;
+  display:none;
+}
+
+#share > h3 {
+  text-align: center;
+  margin-top: 2px;
+  color: #17202A;
+}
+
+.share-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.share-icon > i {
+  margin-top: -20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 40px;
+  color: #17202A;
+}
+
+#description {
+  margin-top: 5px;
+  border-top: 1px dashed #ABB2B9;
+  display: none;
+}
+
+#description > h3 {
+  text-align: center;
+  margin-top: 2px;
+  color: #17202A;
+}
+
+#desc-text {
+  text-align: left;
+}
+
+#desc-text > p {
+  margin: 0px;
+  color: #17202A;
+}
+
+#desc-text a, #desc-text u {
+  text-decoration: none;
+  color: #17202A;
+  border-bottom: dotted 1px #17202A;
+}
