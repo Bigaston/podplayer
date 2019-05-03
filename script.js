@@ -4,10 +4,13 @@
  * Pouvoir écouter en accéléré (jusqu'à x5)
  */
 
+document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer/style.css">`
+
 globaldiv = document.getElementById("big-player")
 console.log()
 
 globaldiv.innerHTML = `
+<style src="https://cdn.jsdelivr.net/gh/bigaston/podplayer/style.css">
 <div class="player">
     <img id="audio-logo" alt="Logo du podcast">
     <div class="audio-info">
