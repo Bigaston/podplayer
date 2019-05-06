@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+#formulaire {
+  font-family: 'Lato', sans-serif;
+  background: #ECF0F1;
+  width: 700px;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px #909497;
+
+  padding: 25px;
+}
+
+h2 {
+  margin: 5px;
+  color: #17202A;
+  font-size: 30px;
+}
+
+#rss-input {
+  border-style:solid;
+  border-color: #808B96;
+  border-radius: 20px;
+  padding: 5px;
+  text-align: center;
+  box-shadow: none;
+}
+
+#rss-input:focus {
+  border-style:solid;
+  border-color: #808B96;
+  border-radius: 20px;
+}
+
+.div-rss {
+  border: 1px dotted #000000;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.div-rss > h3 {
+  margin: 0px;
+}
+
+#search {
+  display: none;
+}
+
+#gen {
+  display: none;
+}
+
+#widgetcode {
+  display:none;
+  margin: 10px;
+  width: 300px;
+}
+
+#dispwidget {
+  border: 1px dotted #000000;
+  padding: 5px;
+  margin-top: 5px;
+  display: none;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Podcast Player Generator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer/style.css">
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <center>
+  <div id="formulaire">
+    <h2>Créer un player!</h2>
+    <input type="text" id="rss-input" placeholder="example.com/rss"><br>
+    
+    <input type="radio" id="episode" name="choix">
+    <label for="episode">Choisir un épisode</label>
+    
+    <input type="radio" id="dernier" name="choix">
+    <label for="dernier">Toujours le dernier épisode</label><br>
+    
+    <button id="search" onclick="rechercher()">Rechercher</button>
+    <button id="gen" onclick="genPlayer('last')">Générer le Player</button>
+    <div id="rss-result">
+    </div>
+    
+    <input type="text" id="widgetcode" readonly> 
+    <div id="dispwidget">
+    </div>
+  </div>
+</center>
+  <script src='https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.0.0/script.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
