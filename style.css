@@ -147,4 +147,5 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   text-decoration: none;
   color: #17202A;
   border-bottom: dotted 1px #17202A;
+  word-wrap: break-word;
 }

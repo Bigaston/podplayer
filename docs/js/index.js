@@ -59,7 +59,7 @@ function genPlayer(id) {
   
   text = document.getElementById("widgetcode");
   text.style = "display: block;"
-  text.value = widget + `<script src="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.0.0/script.js"></script>`;
+  text.value = widget + `<script src="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.1.0/script.js"></script>`;
   disp = document.getElementById("dispwidget")
   disp.style = "text-align: left;display:block;"
   disp.innerHTML = `<div id="big-player" feed="${document.getElementById("rss-input").value}" guid="${id}">

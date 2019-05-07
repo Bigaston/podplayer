@@ -4,7 +4,7 @@
  * Pouvoir écouter en accéléré (jusqu'à x5)
  */
 
-document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer/style.css">`
+document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.1.0/style.css">`
 
 globaldiv = document.getElementById("big-player")
 
