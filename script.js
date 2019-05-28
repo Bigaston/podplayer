@@ -4,19 +4,21 @@
  * Pouvoir écouter en accéléré (jusqu'à x5)
  */
 
-document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.1.0/style.css">`
+document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.2.0/style.css">`
+import("https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.0/jsmediatags.js")
+
+var jsmediatags = window.jsmediatags;
 
 globaldiv = document.getElementById("big-player")
 
 globaldiv.innerHTML = `
-<div class="player">
+  <div class="player">
     <img id="audio-logo" alt="Logo du podcast">
     <div class="audio-info">
       <h2 id="ep-title"><!-- Nom de l'épisode --></h2>
       <h3 id="podcast-title"><!-- Nom du podcast --></h3> 
-      <a id="eplink"></a>      
+      <a id="eplink"></a>
 <p id="audio-ep"></p>
-
       <div id="progressbar">
         <div id="prog"></div>
       </div>
@@ -35,8 +37,8 @@ globaldiv.innerHTML = `
   <div id="share">
     <h3 id="sharetitle">Partager <!-- Nom du podcast --></h3>
     <div class="share-icon">
-      <i class="fab fa-twitter" style="color:#00aced;"></i>
-      <i class="fab fa-facebook" style="color:#3B5998;"></i>
+      <a href="" id="sharetw" target="_blank"><i class="fab fa-twitter" style="color:#00aced;"></i></a>
+      <a href="" id="sharefb" target="_blank"><i class="fab fa-facebook" style="color:#3B5998;"></a></i>
     </div>
   </div>
   
@@ -45,6 +47,13 @@ globaldiv.innerHTML = `
     <div id="desc-text">
       <!-- Description -->
     </div>
+  </div>
+  
+  <div id="bookmark">
+    <h3>Chapitres</h3>
+    <ul id="book-list">
+      
+    </ul>
   </div>
 `
 
@@ -80,11 +89,11 @@ function initDocument(item, titre) {
   
   player = document.getElementById("audiosound");
   
-  
   for (i = 0; i < item.children.length; i++) {
     if (item.children.item(i).tagName=="enclosure") {
       
         player.src = item.children.item(i).attributes.url.nodeValue;
+      getMetaData(item.children.item(i).attributes.url.nodeValue);
     } else if (item.children.item(i).tagName=="itunes:image") {
         document.getElementById("audio-logo").src = item.children.item(i).attributes.href.nodeValue;
     } else if (item.children.item(i).tagName == "title") {
@@ -97,6 +106,9 @@ function initDocument(item, titre) {
       document.getElementById("desc-text").innerHTML = item.children.item(i).innerHTML.replace("<![CDATA[", "").replace("]]>", "");
     } else if (item.children.item(i).tagName == "link") {
       document.getElementById("eplink").innerHTML = ` — <i class="fas fa-link"></i> Lien de l'épisode`
+      document.getElementById("sharefb").href = `http://www.facebook.com/sharer.php
+?u=${encodeURIComponent(item.children.item(i).innerHTML)}`
+      document.getElementById("sharetw").href = `https://twitter.com/intent/tweet?text=${encodeURIComponent( item.children.item(i).innerHTML + " #podcast")}`
       document.getElementById("eplink").href = item.children.item(i).innerHTML
     }
     
@@ -167,10 +179,12 @@ function initDocument(item, titre) {
   function openShare() {
     share = document.getElementById("share");
     desc = document.getElementById("description");
+    book = document.getElementById("bookmark")
     
     if (share.style.display!= "block") {
       share.style.display = "block";
       desc.style.display = "none";
+      book.style.display = "none";
     } else {
       share.style.display = "none";
     }
@@ -178,18 +192,77 @@ function initDocument(item, titre) {
     sharebutton.addEventListener("click", openShare);
   }
 
+  function openBook() {
+    desc = document.getElementById("description");
+    share = document.getElementById("share");
+    book = document.getElementById("bookmark")
+    
+    if (book.style.display!= "block") {
+      book.style.display = "block";
+      share.style.display = "none";
+      desc.style.display = "none";
+    } else {
+      book.style.display = "none";
+    }
+  
+    bookbutton = document.getElementById("bookbutton")
+    bookbutton.addEventListener("click", openBook);
+  }
+  
   function openDesc() {
     desc = document.getElementById("description");
     share = document.getElementById("share");
-
+    book = document.getElementById("bookmark")
     
     if (desc.style.display!= "block") {
       desc.style.display = "block";
       share.style.display = "none";
+      book.style.display = "none";
     } else {
       desc.style.display = "none";
     }
   
     descbutton.addEventListener("click", openDesc);
+    }
+  function getMetaData(audio) {
+      jsmediatags.read(CORSPROXY + audio, {
+        onSuccess: function(tag) {
+          if (tag.tags.CHAP != undefined) {
+            btn_book = document.createElement("i")
+            btn_book.className = "fas fa-bookmark";
+            btn_book.id = "bookbutton"
+            btn_book.addEventListener("click", openBook);
+            document.getElementsByClassName("controls")[0].appendChild(btn_book)
+            
+            list_book = document.getElementById("book-list");
+                        
+            for (i = 0; i < tag.tags.CHAP.length; i++) {
+              li = document.createElement("li")
+              s1 = document.createElement("span")
+              s2 = document.createElement("span")
+              
+              s1.innerHTML = " : " + tag.tags.CHAP[i].data.subFrames.TIT2.data
+                            
+              hms = convertHMS(tag.tags.CHAP[i].data.startTime/1000)
+
+              s2.innerHTML = hms.heure + ":" + hms.minute + ":" + hms.seconde
+              
+              s2.setAttribute("time", tag.tags.CHAP[i].data.startTime/1000)
+              s2.addEventListener("click", jumpTo);
+              li.appendChild(s2)
+              li.appendChild(s1)
+              list_book.appendChild(li)
+            }
+          }
+        },
+        onError: function(error) {
+          console.log(error);
+        }
+  });
+  }
+  
+  function jumpTo(event) {
+    player = document.getElementById("audiosound");
+    player.currentTime = event.target.getAttribute("time")
   }
 }

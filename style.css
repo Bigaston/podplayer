@@ -38,7 +38,16 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   margin-top: 3px;
 }
 
+.audio-info {
+  width: 100%;
+}
+
 #eplink {
+  color: #566573;
+  text-decoration: none;
+}
+
+#downep {
   color: #566573;
   text-decoration: none;
 }
@@ -114,7 +123,7 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   justify-content: center;
 }
 
-.share-icon > i {
+.share-icon > a > i {
   margin-top: -20px;
   margin-left: 10px;
   margin-right: 10px;
@@ -148,4 +157,36 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   color: #17202A;
   border-bottom: dotted 1px #17202A;
   word-wrap: break-word;
+}
+
+#bookmark {
+  margin-top: 5px;
+  border-top: 1px dashed #ABB2B9;
+  display: none;
+}
+
+#bookmark > h3 {
+  text-align: center;
+  margin-top: 2px;
+  color: #17202A;
+}
+
+#book-list {
+  padding-left: 0px;
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+
+#book-list > li > span:first-child:hover {
+  cursor: pointer;
+}
+
+#book-list > li > span:first-child {
+  border-bottom: dotted 1px #17202A;
+}
+
+#book-list > li {
+  margin-top: 2px;
+  list-style-type: none;
+  padding-left: 0px;
 }
