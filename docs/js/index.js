@@ -59,7 +59,7 @@ function genPlayer(id) {
   
   text = document.getElementById("widgetcode");
   text.style = "display: block;"
-  text.value = widget + `<script src="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.1.0/script.js"></script>`;
+  text.value = widget + `<script src="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.2.0/script.js"></script>`;
   disp = document.getElementById("dispwidget")
   disp.style = "text-align: left;display:block;"
   disp.innerHTML = `<div id="big-player" feed="${document.getElementById("rss-input").value}" guid="${id}">
@@ -68,7 +68,7 @@ function genPlayer(id) {
     <div class="audio-info">
       <h2 id="ep-title"><!-- Nom de l'épisode --></h2>
       <h3 id="podcast-title"><!-- Nom du podcast --></h3> 
-      <a id="eplink"></a>      
+      <a id="eplink"></a>
 <p id="audio-ep"></p>
       <div id="progressbar">
         <div id="prog"></div>
@@ -88,8 +88,8 @@ function genPlayer(id) {
   <div id="share">
     <h3 id="sharetitle">Partager <!-- Nom du podcast --></h3>
     <div class="share-icon">
-      <i class="fab fa-twitter" style="color:#00aced;"></i>
-      <i class="fab fa-facebook" style="color:#3B5998;"></i>
+      <a href="" id="sharetw" target="_blank"><i class="fab fa-twitter" style="color:#00aced;"></i></a>
+      <a href="" id="sharefb" target="_blank"><i class="fab fa-facebook" style="color:#3B5998;"></a></i>
     </div>
   </div>
   
@@ -98,6 +98,13 @@ function genPlayer(id) {
     <div id="desc-text">
       <!-- Description -->
     </div>
+  </div>
+  
+  <div id="bookmark">
+    <h3>Chapitres</h3>
+    <ul id="book-list">
+      
+    </ul>
   </div>
 </div>`;
   
