@@ -1,13 +1,8 @@
-/* TODO
- * +10 sec et -10 secondes (avoirle choix)
- * Un partage avec un démarrage à un endroit précis
- * Pouvoir écouter en accéléré (jusqu'à x5)
- */
-
-document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.2.0/style.css">`
+document.getElementsByTagName("head")[0].innerHTML = document.getElementsByTagName("head")[0].innerHTML + `  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.3.0/style.css">`
 import("https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.0/jsmediatags.js")
 
 var jsmediatags = window.jsmediatags;
+playspeed = 1;
 
 globaldiv = document.getElementById("big-player")
 
@@ -16,15 +11,28 @@ globaldiv.innerHTML = `
     <img id="audio-logo" alt="Logo du podcast">
     <div class="audio-info">
       <h2 id="ep-title"><!-- Nom de l'épisode --></h2>
-      <h3 id="podcast-title"><!-- Nom du podcast --></h3> 
+      <div id="subbar">
+        <h3 id="podcast-title"><!-- Nom du podcast --></h3> 
       <a id="eplink"></a>
 <p id="audio-ep"></p>
+        <div>
+          <i class="fas fa-stopwatch"></i>
+          <p>X1.0</p>
+        </div>
+      </div>
+      <div id="speedrange">
+        <input type="range" min="0.5" max="5" value="1" id="rangebar" step="0.1">
+      </div>
       <div id="progressbar">
         <div id="prog"></div>
-      </div>
+      </div>      
       <div class="time">
         <p id="audio-time">00:00:00</p>
         <p id="audio-duration">00:00:00</p>
+      </div>
+      <div id="plusmoins">
+        <p id="plusdix">+10s <i class="fas fa-forward"></i></p>
+        <p id="moinsdix"><i class="fas fa-backward"></i> -10s</p> 
       </div>
       <div class="controls">
         <i id="descbutton" class="fas fa-align-left"></i>
@@ -54,7 +62,7 @@ globaldiv.innerHTML = `
     <ul id="book-list">
       
     </ul>
-  </div>
+  </div>  
 `
 
 parser = new DOMParser();
@@ -63,15 +71,15 @@ var CORSPROXY = "https://cors-anywhere.herokuapp.com/"
 
 // CHANGE THIS
 
-fetch(CORSPROXY + globaldiv.attributes[1].value)
+fetch(CORSPROXY + getAttribute("feed"))
   .then((response) => {
     response.text().then((text) => {
       xmlDoc = parser.parseFromString(text,"text/xml");
       i = 0;
-      if (globaldiv.attributes[2].value == "last") {
+      if (getAttribute("guid") == "last") {
         item = xmlDoc.getElementsByTagName("item")[0];
       } else {
-        while (globaldiv.attributes[2].value!=xmlDoc.getElementsByTagName("item")[i].getElementsByTagName("guid")[0].innerHTML && i < xmlDoc.getElementsByTagName("item").length) {
+        while (getAttribute("guid")!=xmlDoc.getElementsByTagName("item")[i].getElementsByTagName("guid")[0].innerHTML && i < xmlDoc.getElementsByTagName("item").length) {
           i++;
         }
         item = xmlDoc.getElementsByTagName("item")[i];
@@ -85,7 +93,14 @@ fetch(CORSPROXY + globaldiv.attributes[1].value)
   })
 
 
-function initDocument(item, titre) {
+function initDocument(item, titre) {  
+  if (getAttribute("mc") != undefined) {
+    document.documentElement.style.setProperty('--main-color', getAttribute("mc"));
+  }
+  
+  if (getAttribute("bc") != undefined) {
+    document.documentElement.style.setProperty('--button-color', getAttribute("bc"));    
+  } 
   
   player = document.getElementById("audiosound");
   
@@ -121,15 +136,25 @@ function initDocument(item, titre) {
 
   descbutton = document.getElementById("descbutton")
   descbutton.addEventListener("click", openDesc);
+  
+  speedbutton = document.querySelector("#subbar > div");
+  speedbutton.addEventListener("click", openSpeed)
+  
+  speedrange = document.getElementById("rangebar");
+  speedrange.addEventListener("change", changeSpeed)
 
   bar = document.getElementById("progressbar")
   bar.addEventListener("click", changeTime);
+  
+  document.getElementById("plusdix").addEventListener("click", jumpTime)
+  document.getElementById("moinsdix").addEventListener("click", jumpTime)
   
   setInterval(updateTime, 1000);
   
   function playAudio() {
     if (playbutton.classList.contains("fa-play-circle")) {
       player.play()
+      player.playbackRate = playspeed;
       playbutton.className = "fas fa-pause-circle"
     } else {
       player.pause()
@@ -264,5 +289,46 @@ function initDocument(item, titre) {
   function jumpTo(event) {
     player = document.getElementById("audiosound");
     player.currentTime = event.target.getAttribute("time")
+  }
+  
+  function openSpeed() {
+    if (document.getElementById("speedrange").style.display!="block") {
+      document.getElementById("speedrange").style.display = "block"
+    } else {
+      document.getElementById("speedrange").style.display = "none"
+    }
+  }
+  
+  function changeSpeed(event) {
+    playspeed = event.target.value;
+    document.querySelector("#subbar > div > p").innerHTML = "X" + addZero(playspeed);
+    player = document.getElementById("audiosound");
+    player.playbackRate = playspeed;
+    
+  }
+  
+  function jumpTime(event) {
+    player = document.getElementById("audiosound");
+    if (event.target.attributes["id"].value == "plusdix") {
+      player.currentTime = player.currentTime + 10
+    } else {
+      player.currentTime = player.currentTime - 10
+    }
+  }
+}
+
+function getAttribute(att) {
+  if (globaldiv.attributes[att] == undefined) {
+    return undefined;
+  } else {
+    return globaldiv.attributes[att].value;
+  }
+}
+
+function addZero(val) {
+  if (Math.trunc(val) != val) {
+    return "" + val;
+  } else {
+    return "" + val + ".0"
   }
 }
