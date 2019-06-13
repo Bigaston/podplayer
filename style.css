@@ -3,6 +3,11 @@
 @import
 url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 
+:root {
+  --main-color: #3498DB;
+  --button-color: #17202A;  
+}
+
 #big-player {
   font-family: 'Lato', sans-serif;
   background: #ECF0F1;
@@ -31,7 +36,7 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   font-size: 30px;
 }
 
-.audio-info > h3 {
+#podcast-title {
   margin: 0px;
   color: #566573;
   display: inline;
@@ -69,7 +74,7 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 }
 
 #prog {
-  background-color: #3498DB;
+  background-color: var(--main-color);
   height: 10px;
   border-radius: 3px;
 }
@@ -79,14 +84,21 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   justify-content: space-between;
 }
 
-#audio-time {
+.time > p {
   margin-top: 0px;
   color: #5D6D7E;
+  margin-bottom: 0px;
 }
 
-#audio-duration {
+#plusmoins {
+  display: flex;
+  justify-content: space-between;
+}
+
+#plusmoins > p {
   margin-top: 0px;
   color: #5D6D7E;
+  cursor: pointer;
 }
 
 .controls {
@@ -95,11 +107,11 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 }
 
 .controls > i {
-  margin-top: -30px;
+  margin-top: -50px;
   margin-left: 10px;
   margin-right: 10px;
   font-size: 40px;
-  color: #17202A;
+  color: var(--button-color);
 }
 
 .controls > i:hover {
@@ -189,4 +201,67 @@ url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
   margin-top: 2px;
   list-style-type: none;
   padding-left: 0px;
+}
+
+#subbar {
+  margin: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+#subbar > div {
+  justify-self: right;
+  margin-left: auto;
+  color: #17202A;
+}
+
+#subbar > div > p {
+  margin: 0px;
+  display: inline;
+  justify-self: right;
+}
+
+#subbar > div:hover {
+  cursor: pointer;
+}
+
+#speedrange {
+  display: none;
+}
+
+#rangebar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  background: #d3d3d3; 
+  outline: none;
+  opacity: 0.7;
+  border-radius: 3px;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+#rangebar:hover {
+  opacity: 1;
+}
+
+#rangebar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: var(--button-color);
+  cursor: pointer;
+}
+
+#rangebar::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: var(--button-color);
+  cursor: pointer; 
 }
