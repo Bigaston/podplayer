@@ -59,23 +59,36 @@ function genPlayer(id) {
   
   text = document.getElementById("widgetcode");
   text.style = "display: block;"
-  text.value = widget + `<script src="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.2.0/script.js"></script>`;
+  text.value = widget + `<script src="https://cdn.jsdelivr.net/gh/bigaston/podplayer@1.3.0/script.js"></script>`;
   disp = document.getElementById("dispwidget")
   disp.style = "text-align: left;display:block;"
   disp.innerHTML = `<div id="big-player" feed="${document.getElementById("rss-input").value}" guid="${id}">
-<div class="player">
+  <div class="player">
     <img id="audio-logo" alt="Logo du podcast">
     <div class="audio-info">
       <h2 id="ep-title"><!-- Nom de l'épisode --></h2>
-      <h3 id="podcast-title"><!-- Nom du podcast --></h3> 
+      <div id="subbar">
+        <h3 id="podcast-title"><!-- Nom du podcast --></h3> 
       <a id="eplink"></a>
 <p id="audio-ep"></p>
+        <div>
+          <i class="fas fa-stopwatch"></i>
+          <p>X1.0</p>
+        </div>
+      </div>
+      <div id="speedrange">
+        <input type="range" min="0.5" max="5" value="1" id="rangebar" step="0.1">
+      </div>
       <div id="progressbar">
         <div id="prog"></div>
-      </div>
+      </div>      
       <div class="time">
         <p id="audio-time">00:00:00</p>
         <p id="audio-duration">00:00:00</p>
+      </div>
+      <div id="plusmoins">
+        <p id="plusdix">+10s <i class="fas fa-forward"></i></p>
+        <p id="moinsdix"><i class="fas fa-backward"></i> -10s</p> 
       </div>
       <div class="controls">
         <i id="descbutton" class="fas fa-align-left"></i>
@@ -105,8 +118,7 @@ function genPlayer(id) {
     <ul id="book-list">
       
     </ul>
-  </div>
-</div>`;
+  </div>  `;
   
   globaldiv = document.getElementById("big-player")
   
